@@ -64,7 +64,7 @@
 
   Twipsy.prototype = {
 
-    show: function() {
+    show: function(event) {
       var pos
         , actualWidth
         , actualHeight
@@ -107,6 +107,9 @@
             break
           case 'right':
             tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width + this.options.offset}
+            break
+          case 'mouse':
+            tp = {top: event.pageY, left: pos.left + pos.width + this.options.offset}
             break
         }
 
@@ -241,17 +244,17 @@
       return twipsy
     }
 
-    function enter() {
+    function enter(event) {
       var twipsy = get(this)
       twipsy.hoverState = 'in'
 
       if (options.delayIn == 0) {
-        twipsy.show()
+        twipsy.show(event)
       } else {
         twipsy.fixTitle()
         setTimeout(function() {
           if (twipsy.hoverState == 'in') {
-            twipsy.show()
+            twipsy.show(event)
           }
         }, options.delayIn)
       }
